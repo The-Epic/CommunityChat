@@ -1,7 +1,9 @@
 package xyz.epicebic.communitychat;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.epic.spigotlib.formatting.Formatting;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.awt.*;
 import java.util.regex.Pattern;
@@ -12,7 +14,7 @@ public class Utils {
     private static final Pattern HEX_NUMBERS_PATTERN = Pattern.compile("0x[a-fA-F0-9]{6}");
     private static final Pattern CHATCOLOR_LETTER_PATTERN = Pattern.compile("(?i)[0-9A-FK-ORX]");
 
-    public static String formatMessage(CommunityChat plugin, String playerName, String message, String... colors) {
+    public static String formatMessage(CommunityChat plugin, String playerName, String message, Player player, String... colors) {
         String colorString;
         if (colors.length == 1 && colors[0].contains(":")) {
             colorString = colors[0];
@@ -26,8 +28,9 @@ public class Utils {
         String messageFormat = plugin.getMessageFormat();
         messageFormat = messageFormat.replace("<name>", "<gradient:" + colorString + ">" + playerName + "</gradient>");
         messageFormat = messageFormat.replace("<message>", message);
+        messageFormat = messageFormat.replace(ChatColor.COLOR_CHAR, '&');
 
-        return Formatting.translate(messageFormat);
+        return Formatting.translate(PlaceholderAPI.setPlaceholders(player, messageFormat));
     }
 
     public static boolean isColorValid(String color) {

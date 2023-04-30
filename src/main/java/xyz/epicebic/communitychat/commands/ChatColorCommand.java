@@ -39,5 +39,5 @@ public class ChatColorCommand extends SimpleCommandHandler {
 
         plugin.getPlayerDataAPI().getProvider().setChatColors(player.getUniqueId(), args);
         plugin.getPlayerColorCache().put(player.getUniqueId(), String.join(":", args));
-        player.sendMessage(PlaceholderAPI.setPlaceholders(player, Utils.formatMessage(plugin, player.getName(), "This is a test message", args)));
+        player.sendMessage(PlaceholderAPI.setPlaceholders(player, Utils.formatMessage(plugin, player.getName(), "This is a test message", player, args)));
     }}

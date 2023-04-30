@@ -19,7 +19,7 @@ public class PlayerChatListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        String message = PlaceholderAPI.setPlaceholders(player, Utils.formatMessage(plugin, player.getName(), event.getMessage(), plugin.getPlayerColorCache().getOrDefault(player.getUniqueId(), "white").replaceAll(",", ":"))).replace("%", "%%");
+        String message = Utils.formatMessage(plugin, player.getName(), event.getMessage(), player, plugin.getPlayerColorCache().getOrDefault(player.getUniqueId(), "white").replaceAll(",", ":")).replace("%", "%%");
         event.setFormat(message);
 
 
