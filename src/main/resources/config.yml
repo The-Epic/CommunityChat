@@ -1,0 +1,6 @@
+chat:
+  format: "%luckperms_prefix% <name> » <message>"
+  global: "[<server>] <message>"
+
+server:
+  name: "test"

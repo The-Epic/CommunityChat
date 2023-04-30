@@ -1,0 +1,18 @@
+name: CommunityChat
+version: '${version}'
+main: xyz.epicebic.communitychat.CommunityChat
+api-version: 1.18
+depend:
+  - PlayerDataAPI
+  - PlaceholderAPI
+libraries:
+  #  - 'com.zaxxer:HikariCP:5.0.1'
+  - 'net.kyori:adventure-platform-bukkit:4.2.0'
+  - 'net.kyori:adventure-api:4.13.0'
+  - 'net.kyori:adventure-text-minimessage:4.13.0'
+
+commands:
+  communitychat-reload:
+    permission: communitychat.command.reload
+  chatcolor:
+    permission: communitychat.command.chatcolor
