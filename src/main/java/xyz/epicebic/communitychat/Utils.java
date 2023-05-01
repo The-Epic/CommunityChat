@@ -13,6 +13,7 @@ public class Utils {
     private static final Pattern HEX_HASHTAG_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}");
     private static final Pattern HEX_NUMBERS_PATTERN = Pattern.compile("0x[a-fA-F0-9]{6}");
     private static final Pattern CHATCOLOR_LETTER_PATTERN = Pattern.compile("(?i)[0-9A-FK-ORX]");
+    private static final Pattern RGB_PATTERN = Pattern.compile("^rgb\\((\\d{1,3}),\\s*(\\d{1,3}),\\s*(\\d{1,3})\\)$");
 
     public static String formatMessage(CommunityChat plugin, String playerName, String message, Player player, String... colors) {
         String colorString;
@@ -34,7 +35,7 @@ public class Utils {
     }
 
     public static boolean isColorValid(String color) {
-        return HEX_HASHTAG_PATTERN.matcher(color).matches() || HEX_NUMBERS_PATTERN.matcher(color).matches() || CHATCOLOR_LETTER_PATTERN.matcher(color).matches();
+        return HEX_HASHTAG_PATTERN.matcher(color).matches() || HEX_NUMBERS_PATTERN.matcher(color).matches() || CHATCOLOR_LETTER_PATTERN.matcher(color).matches() || RGB_PATTERN.matcher(color).matches();
     }
 
     /**
@@ -49,6 +50,9 @@ public class Utils {
         } else if (CHATCOLOR_LETTER_PATTERN.matcher(color).matches()) {
             Color chatColor = ChatColor.getByChar(color.charAt(0)).getColor();
             return getValidColor(String.valueOf(String.format("#%02x%02x%02x", chatColor.getRed(), chatColor.getGreen(), chatColor.getBlue())));
+        } else if (RGB_PATTERN.matcher(color).matches()) {
+            String[] rgb = color.substring(4, color.length() - 1).replace(" ", "").split(",");
+            return "#" + Integer.toHexString(new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2])).getRGB()).substring(2);
         } else {
             return color;
         }
